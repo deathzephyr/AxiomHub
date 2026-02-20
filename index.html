@@ -12,6 +12,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- SCRIPT DE BLOQUEIO DE RENDERIZAÇÃO (EVITA O PISCAR) -->
+    <script>
+        (function() {
+            try {
+                // Verifica se há uma imagem salva ANTES da página carregar
+                const savedBg = localStorage.getItem('ldx_custom_bg');
+                if (savedBg) {
+                    // Define a variável CSS global imediatamente
+                    document.documentElement.style.setProperty('--bg-image', `url('${savedBg}')`);
+                } else {
+                    // Garante o padrão
+                    document.documentElement.style.setProperty('--bg-image', `url('img2.jpeg')`);
+                }
+            } catch (e) {
+                console.error("Erro ao carregar configuração inicial de fundo", e);
+            }
+        })();
+    </script>
+
     <style>
         /* --- DESIGN SYSTEM --- */
         :root {
@@ -36,6 +55,9 @@
             --color-wiki: #FFFFFF;
             --color-spotify: #1DB954;
             --color-cloudflare: #F38020;
+
+            /* VARIAVEL DE FUNDO CONTROLADA PELO SCRIPT ACIMA */
+            --bg-image: url('img2.jpeg');
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
@@ -52,8 +74,7 @@
 
         h1, h2, h3, .logo { font-family: 'Space Grotesk', sans-serif; }
 
-        /* --- BACKGROUND SYSTEM (APENAS IMAGEM SINCRONIZADA) --- */
-        /* Igual ao GameHub */
+        /* --- BACKGROUND SYSTEM (USANDO VARIAVEL) --- */
         #custom-bg-layer {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh; 
@@ -61,8 +82,8 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            /* FUNDO PADRÃO: img2.jpeg */
-            background-image: url('img2.jpeg');
+            /* Usa a variável definida no script inicial */
+            background-image: var(--bg-image);
             opacity: 1;
             transition: background-image 0.5s ease, opacity 0.5s ease;
             pointer-events: none;
@@ -128,7 +149,6 @@
             white-space: nowrap;
         }
         
-        /* Cores das Categorias no Dropdown */
         #catDropdown .dropdown-option[data-cat-filter="chat"] { color: #ef4444; } 
         #catDropdown .dropdown-option[data-cat-filter="media"] { color: #06b6d4; }
         #catDropdown .dropdown-option[data-cat-filter="dev"] { color: #22c55e; }
@@ -241,7 +261,6 @@
         .engine-option:hover { background: rgba(255,255,255,0.08); color: white; }
         .engine-option.selected { background: rgba(255,255,255,0.05); color: white; font-weight: 500; }
         
-        /* Cores dos Ícones */
         .icon-google { color: var(--color-google); }
         .icon-youtube { color: var(--color-youtube); }
         .icon-bing { color: var(--color-bing); }
@@ -338,7 +357,6 @@
         .section-title { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
         .section-line { height: 1px; width: 100%; background: linear-gradient(to right, rgba(255,255,255,0.2), transparent); }
 
-        /* Cores das Seções */
         .header-chat .section-title { color: #ef4444; } 
         .header-chat .section-line { background: linear-gradient(to right, #ef4444, transparent); }
         .header-media .section-title { color: #06b6d4; } 
@@ -378,7 +396,7 @@
         .card:hover::after { left: 150%; transition: 0.8s ease-in-out; }
         .card:hover { background: rgba(30, 30, 35, 0.8); border-color: rgba(255,255,255,0.4); }
 
-        /* --- ESTILOS SINCRONIZADOS (DO GAMEHUB) --- */
+        /* --- ESTILOS SINCRONIZADOS --- */
         body.transparent-mode .card {
             background: rgba(0, 0, 0, 0.25); 
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -541,7 +559,7 @@
 </head>
 <body>
 
-    <!-- FUNDO PADRÃO (img2.jpeg) E CAMADA DE CUSTOMIZAÇÃO -->
+    <!-- FUNDO SINCRONIZADO (SEMO PISCAR) -->
     <div id="custom-bg-layer"></div>
 
     <div class="container">
@@ -731,30 +749,46 @@
     <script>
         /* 
            ================================================================
-           SINCRONIZAÇÃO COM PORTAL LDX (MESMA LÓGICA DO GAMEHUB)
+           SINCRONIZAÇÃO COM PORTAL LDX (SEM PISCAR)
            ================================================================
         */
         function initSyncedSettings() {
-            const bgLayer = document.getElementById('custom-bg-layer');
             
-            // 1. Sincronizar Fundo (Exatamente igual ao GameHub)
-            const savedBg = localStorage.getItem('ldx_custom_bg');
-            if (savedBg) {
-                bgLayer.style.backgroundImage = `url('${savedBg}')`;
-            } else {
-                // Se não tiver customizado, usa o padrão (já definido no CSS, mas garante aqui)
-                bgLayer.style.backgroundImage = `url('img2.jpeg')`;
-            }
-            bgLayer.style.opacity = '1'; 
-
-            // 2. Sincronizar Estilo dos Cards (Exatamente igual ao GameHub)
+            // 1. Sincronizar Estilo dos Cards
             const savedStyle = localStorage.getItem('ldx_card_style');
             if (savedStyle === 'transparent') {
                 document.body.classList.add('transparent-mode');
             } else if (savedStyle === 'invisible') {
                 document.body.classList.add('invisible-mode');
             }
+
+            // 2. Sincronizar Fundo (Usando Variável CSS para consistência)
+            // Nota: O script no head já carregou o valor inicial. 
+            // Isso aqui serve para garantir sincronia em tempo real caso mude.
+            const savedBg = localStorage.getItem('ldx_custom_bg');
+            if (savedBg) {
+                document.documentElement.style.setProperty('--bg-image', `url('${savedBg}')`);
+            } else {
+                document.documentElement.style.setProperty('--bg-image', `url('img2.jpeg')`);
+            }
         }
+
+        // Ouvinte para mudanças em tempo real
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'ldx_custom_bg') {
+                const newBg = e.newValue;
+                if (newBg) {
+                    document.documentElement.style.setProperty('--bg-image', `url('${newBg}')`);
+                } else {
+                    document.documentElement.style.setProperty('--bg-image', `url('img2.jpeg')`);
+                }
+            }
+            if (e.key === 'ldx_card_style') {
+                document.body.classList.remove('transparent-mode', 'invisible-mode');
+                if (e.newValue === 'transparent') document.body.classList.add('transparent-mode');
+                if (e.newValue === 'invisible') document.body.classList.add('invisible-mode');
+            }
+        });
 
         /* --- LÓGICA DO SISTEMA DE PESQUISA E FILTRO --- */
         const engines = {
