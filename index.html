@@ -18,20 +18,15 @@
             --bg-dark: #050507;
             --glass-bg: rgba(20, 20, 25, 0.6); 
             --glass-border: rgba(255, 255, 255, 0.1);
-            
-            /* Cores Temáticas (Controladas via JS para Sincronização) */
             --accent-primary: #8b5cf6; 
             --accent-secondary: #ec4899; 
             --accent-cyan: #06b6d4; 
-            
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            
-            /* Gradiente Dinâmico */
             --gradient-primary: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
             
-            /* Cores das Marcas (Fixas) */
+            /* Cores das Marcas */
             --color-google: #EA4335;
             --color-youtube: #FF0000;
             --color-bing: #008373;
@@ -57,46 +52,21 @@
 
         h1, h2, h3, .logo { font-family: 'Space Grotesk', sans-serif; }
 
-        /* --- BACKGROUND LAYER SYSTEM (FIXO) --- */
+        /* --- BACKGROUND SYSTEM (APENAS IMAGEM SINCRONIZADA) --- */
+        /* Igual ao GameHub */
         #custom-bg-layer {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: -2;
+            top: 0; left: 0; width: 100vw; height: 100vh; 
+            z-index: -1;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-            -webkit-transform: translate3d(0,0,0);
-        }
-
-        body.has-custom-bg .ambient-light { opacity: 0; transition: opacity 0.5s ease; }
-        body.has-custom-bg #custom-bg-layer { opacity: 1; }
-
-        /* --- BACKGROUND --- */
-        .ambient-light {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            overflow: hidden;
+            /* FUNDO PADRÃO: img2.jpeg */
+            background-image: url('img2.jpeg');
+            opacity: 1;
+            transition: background-image 0.5s ease, opacity 0.5s ease;
             pointer-events: none;
         }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.4;
-            animation: floatOrb 25s infinite alternate ease-in-out;
-        }
-
-        .orb-1 { width: 500px; height: 500px; background: var(--accent-primary); top: -150px; left: -150px; animation-duration: 30s; }
-        .orb-2 { width: 600px; height: 600px; background: var(--accent-secondary); bottom: -150px; right: -150px; animation-duration: 35s; animation-delay: -5s; }
-        .orb-3 { width: 350px; height: 350px; background: var(--accent-cyan); top: 40%; left: 50%; transform: translate(-50%, -50%); opacity: 0.25; animation: pulseOrb 12s infinite ease-in-out; }
-
-        @keyframes floatOrb { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(60px, 90px) scale(1.1); } }
-        @keyframes pulseOrb { 0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(0.9); } 50% { opacity: 0.35; transform: translate(-50%, -50%) scale(1.1); } }
 
         .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; padding-bottom: 2rem; }
 
@@ -147,9 +117,7 @@
         .dropdown-option {
             padding: 10px 14px;
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
             color: var(--text-muted);
             text-decoration: none;
             transition: 0.2s;
@@ -160,8 +128,7 @@
             white-space: nowrap;
         }
         
-        /* --- CORES PARA FILTROS DE IA (Sincronizáveis via JS) --- */
-        /* Os valores padrão são definidos aqui, mas o JS pode sobrescrever */
+        /* Cores das Categorias no Dropdown */
         #catDropdown .dropdown-option[data-cat-filter="chat"] { color: #ef4444; } 
         #catDropdown .dropdown-option[data-cat-filter="media"] { color: #06b6d4; }
         #catDropdown .dropdown-option[data-cat-filter="dev"] { color: #22c55e; }
@@ -181,8 +148,7 @@
 
         .hero h1 { 
             font-size: 3.8rem; font-weight: 700; line-height: 1.05; margin-bottom: 1rem;
-            /* Gradiente usa variáveis do tema */
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), #ffffff, var(--accent-primary));
+            background: linear-gradient(90deg, #ef4444, #f97316, #8b5cf6, #ec4899, #ffffff, #ef4444);
             background-size: 300% auto;
             -webkit-background-clip: text; 
             -webkit-text-fill-color: transparent;
@@ -210,8 +176,8 @@
 
         .search-bar:focus-within { 
             background: rgba(25, 25, 30, 0.85); 
-            border-color: var(--accent-primary); /* Usa cor do tema */
-            box-shadow: 0 0 0 2px rgba(255,255,255,0.05), 0 30px 60px -12px rgba(0,0,0,0.8), 0 0 40px var(--accent-primary); 
+            border-color: rgba(139, 92, 246, 0.4); 
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1), 0 30px 60px -12px rgba(0,0,0,0.8), 0 0 40px rgba(139, 92, 246, 0.15); 
             transform: translateY(-2px); 
         }
 
@@ -223,9 +189,7 @@
             border-radius: 22px;
             height: 48px;
             padding: 0 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
             color: var(--text-main);
             cursor: pointer;
             transition: all 0.2s;
@@ -266,9 +230,7 @@
         .engine-option {
             padding: 10px 14px;
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
             color: var(--text-muted);
             text-decoration: none;
             transition: 0.2s;
@@ -376,7 +338,7 @@
         .section-title { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
         .section-line { height: 1px; width: 100%; background: linear-gradient(to right, rgba(255,255,255,0.2), transparent); }
 
-        /* Cores Padrão das Seções (Podem ser sobrescritas pelo JS) */
+        /* Cores das Seções */
         .header-chat .section-title { color: #ef4444; } 
         .header-chat .section-line { background: linear-gradient(to right, #ef4444, transparent); }
         .header-media .section-title { color: #06b6d4; } 
@@ -395,7 +357,7 @@
             text-decoration: none;
             color: white;
             position: relative;
-            overflow: hidden;
+            overflow: hidden; 
             transition: transform 0.1s linear, box-shadow 0.4s ease, border-color 0.3s ease, background 0.3s ease;
             backdrop-filter: blur(25px);
             height: 150px;
@@ -410,11 +372,45 @@
         .card::after {
             content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
             background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg); transition: 0.6s; pointer-events: none; z-index: 5; 
+            transform: skewX(-25deg); transition: 0.6s; pointer-events: none; 
+            z-index: 5; 
         }
         .card:hover::after { left: 150%; transition: 0.8s ease-in-out; }
         .card:hover { background: rgba(30, 30, 35, 0.8); border-color: rgba(255,255,255,0.4); }
+
+        /* --- ESTILOS SINCRONIZADOS (DO GAMEHUB) --- */
+        body.transparent-mode .card {
+            background: rgba(0, 0, 0, 0.25); 
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+        }
+        body.transparent-mode .card:hover {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        body.invisible-mode .card {
+            background: transparent;
+            backdrop-filter: none; 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            box-shadow: none;
+        }
+        body.invisible-mode .card:hover {
+            background: transparent;
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5); 
+        }
+        body.invisible-mode .card h3, 
+        body.invisible-mode .card p {
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
         
+        .card.clicked {
+            transform: scale(0.95);
+            opacity: 0.8;
+            box-shadow: none;
+        }
+
         /* --- ANIMAÇÃO RIPPLE (CLIQUE) --- */
         .ripple {
             position: absolute;
@@ -433,11 +429,36 @@
         .card-bg-icon { position: absolute; right: -10px; bottom: -10px; font-size: 5rem; opacity: 0.04; transform: rotate(-15deg); pointer-events: none; transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 1; }
         .card:hover .card-bg-icon { opacity: 0.08; transform: rotate(0deg) scale(1.2); }
         .card-content { 
-            position: relative; z-index: 20 !important; transform: translateZ(20px); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; width: 100%; justify-content: center; height: 100%; pointer-events: none;
+            position: relative; 
+            z-index: 20 !important; 
+            transform: translateZ(20px); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+            gap: 8px; 
+            width: 100%; 
+            justify-content: center; 
+            height: 100%; 
+            pointer-events: none; 
         }
 
         .card-icon { 
-            width: 42px; height: 42px; aspect-ratio: 1/1; border-radius: 6px; background: rgba(255,255,255,0.05); display: flex; justify-content: center; align-items: center; font-size: 1.1rem; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease; margin-bottom: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); line-height: 0; position: relative; z-index: 10 !important; flex-shrink: 0; 
+            width: 42px; 
+            height: 42px; 
+            aspect-ratio: 1/1; 
+            border-radius: 6px; 
+            background: rgba(255,255,255,0.05); 
+            display: flex; justify-content: center; align-items: center; 
+            font-size: 1.1rem; 
+            border:1px solid rgba(255,255,255,0.05); 
+            transition: all 0.3s ease; 
+            margin-bottom: 8px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); line-height: 0; 
+            position: relative; 
+            z-index: 10 !important;
+            flex-shrink: 0; 
+            overflow: hidden;
         }
         .card-icon i { display: inline-flex; align-items: center; justify-content: center; margin: 0; vertical-align: middle; }
         
@@ -458,7 +479,7 @@
         .card:hover h3 { transform: translateY(-1px); }
         .card p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.3; font-weight: 500; }
 
-        /* Cores Padrão dos Cards (Sincronização via JS aplicada sobre isso) */
+        /* Cores dos Cards */
         .card[data-cat="chat"] .card-icon { color: #ef4444; text-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
         .card[data-cat="chat"]:hover { box-shadow: 0 20px 40px -10px rgba(239, 68, 68, 0.3), 0 0 0 1px rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); }
 
@@ -471,11 +492,21 @@
         .card[data-cat="tools"] .card-icon { color: #f59e0b; text-shadow: 0 0 15px rgba(245,158,11,0.2); }
         .card[data-cat="tools"]:hover { box-shadow: 0 20px 40px -10px rgba(245,158,11,0.3), 0 0 0 1px rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); }
 
-
         /* --- FOOTER --- */
-        footer { text-align: center; padding: 2rem 0; color: var(--text-muted); border-top: 1px solid var(--glass-border); margin-top: 3rem; font-size: 0.8rem; letter-spacing: 0.5px; position: relative; z-index: 2; background: transparent; }
+        footer { 
+            text-align: center; 
+            padding: 2rem 0; 
+            color: var(--text-muted); 
+            border-top: 1px solid var(--glass-border); 
+            margin-top: 3rem; 
+            font-size: 0.8rem; 
+            letter-spacing: 0.5px; 
+            position: relative; 
+            z-index: 2; 
+            background: transparent; 
+        }
 
-        /* --- OTIMIZAÇÃO MOBILE (CELULAR) --- */
+        /* --- MOBILE --- */
         @media (max-width: 600px) { 
             .hero h1 { font-size: 2.4rem; } 
             .container { padding: 0 1rem; } 
@@ -500,7 +531,6 @@
             .dropdown-option[data-cols="2"], .dropdown-option[data-cols="3"] { display: none; }
         }
 
-        /* Estilos para opção 5 Colunas (Compactada) */
         .bento-grid.cols-5 { gap: 8px; }
         .bento-grid.cols-5 .card { height: 110px; padding: 8px; }
         .bento-grid.cols-5 .card-icon { width: 26px; height: 26px; font-size: 0.75rem; margin-bottom: 4px; padding: 0; }
@@ -511,29 +541,21 @@
 </head>
 <body>
 
-    <!-- CAMADA DE FUNDO PERSONALIZADO (FIXO) -->
+    <!-- FUNDO PADRÃO (img2.jpeg) E CAMADA DE CUSTOMIZAÇÃO -->
     <div id="custom-bg-layer"></div>
-
-    <div class="ambient-light">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-    </div>
 
     <div class="container">
         <header>
             <!-- LOGO ROBO -->
             <div class="logo"><i class="fa-solid fa-robot"></i> LDX</div>
             
-            <!-- Controles do Header (Home + Grid + Filtro) -->
             <div class="header-controls">
                 
-                <!-- Botão Home -->
+                <!-- BOTÃO HOME -->
                 <a href="https://deathzephyr.github.io/PortaisLDX/" class="header-btn" title="Portal Principal" target="_self">
                     <i class="fa-solid fa-house"></i>
                 </a>
 
-                <!-- Botão de Controle de Grid -->
                 <div class="header-btn-wrapper">
                     <button class="header-btn" id="gridBtn" title="Layout">
                         <i class="fa-solid fa-border-all"></i>
@@ -546,7 +568,6 @@
                     </div>
                 </div>
                 
-                <!-- Botão de Controle de Categorias (Filtro IA) -->
                 <div class="header-btn-wrapper">
                     <button class="header-btn" id="catBtn" title="Filtrar Categoria">
                         <i class="fa-solid fa-filter"></i>
@@ -563,16 +584,13 @@
         </header>
 
         <section class="hero">
-            <!-- TÍTULO AXIOMHUB -->
             <h1>
                 Bem-vindo ao AxiomHub.
             </h1>
             <p>Seu hub definitivo de inteligência artificial.</p>
             
             <div class="search-wrapper">
-                <!-- Barra de Pesquisa -->
                 <div class="search-bar">
-                    <!-- Seletor de Motor -->
                     <div class="engine-selector">
                         <button class="engine-btn" id="engineBtn" title="Trocar Motor de Busca">
                             <i class="fa-brands fa-google icon-google" id="currentEngineIcon"></i>
@@ -589,24 +607,19 @@
                         </div>
                     </div>
 
-                    <!-- Input -->
                     <form class="search-input-container" id="searchForm">
                         <input type="text" class="search-input" placeholder="Buscar I.A. ou pesquisar na web..." id="searchInput" autocomplete="off">
                     </form>
 
-                    <!-- Botões -->
                     <div class="action-btns">
                         <button class="btn-icon btn-mic" id="voiceBtn" title="Pesquisa por Voz"><i class="fa-solid fa-microphone"></i></button>
                         <button type="submit" form="searchForm" class="btn-icon btn-submit" title="Pesquisar"><i class="fa-solid fa-arrow-right"></i></button>
                     </div>
                 </div>
 
-                <!-- Dropdown de Histórico -->
                 <div class="search-history" id="searchHistory">
                     <div class="history-label">Recentes</div>
-                    <div id="historyList">
-                        <!-- Itens inseridos via JS -->
-                    </div>
+                    <div id="historyList"></div>
                 </div>
             </div>
         </section>
@@ -718,127 +731,30 @@
     <script>
         /* 
            ================================================================
-           SISTEMA DE SINCRONIZAÇÃO LDX (PORTAL)
-           Sincroniza Fundo e Cores (Tema dos Quadrados) com o PortaisLDX
+           SINCRONIZAÇÃO COM PORTAL LDX (MESMA LÓGICA DO GAMEHUB)
            ================================================================
         */
-
-        // Chaves esperadas do PortaisLDX
-        const KEYS = {
-            BG_URL: 'ldx_custom_bg',
-            BG_TYPE: 'ldx_bg_type',
-            THEME_PRIMARY: 'ldx_theme_primary',
-            THEME_SECONDARY: 'ldx_theme_secondary'
-        };
-
-        const defaultBackground = 'img2.jpeg';
-        const customBgLayer = document.getElementById('custom-bg-layer');
-
-        // Função para converter Hex para RGB (para usar com opacidade)
-        function hexToRgb(hex) {
-            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-            return result ? {
-                r: parseInt(result[1], 16),
-                g: parseInt(result[2], 16),
-                b: parseInt(result[3], 16)
-            } : null;
-        }
-
-        // Aplica o tema (cores) do PortaisLDX
-        function applyThemeColors() {
-            const primary = localStorage.getItem(KEYS.THEME_PRIMARY);
-            const secondary = localStorage.getItem(KEYS.THEME_SECONDARY);
+        function initSyncedSettings() {
+            const bgLayer = document.getElementById('custom-bg-layer');
             
-            let primaryColor = primary || '#8b5cf6'; // Default Roxo
-            let secondaryColor = secondary || '#ec4899'; // Default Rosa
+            // 1. Sincronizar Fundo (Exatamente igual ao GameHub)
+            const savedBg = localStorage.getItem('ldx_custom_bg');
+            if (savedBg) {
+                bgLayer.style.backgroundImage = `url('${savedBg}')`;
+            } else {
+                // Se não tiver customizado, usa o padrão (já definido no CSS, mas garante aqui)
+                bgLayer.style.backgroundImage = `url('img2.jpeg')`;
+            }
+            bgLayer.style.opacity = '1'; 
 
-            // Atualiza variáveis CSS globais
-            document.documentElement.style.setProperty('--accent-primary', primaryColor);
-            document.documentElement.style.setProperty('--accent-secondary', secondaryColor);
-
-            // --- SINCRONIZAÇÃO DOS QUADRADOS (CARDS) ---
-            // Se um tema global está definido, sobrescreve as cores individuais das categorias
-            // para criar uma unidade visual com o Portal.
-            const styleSheet = document.createElement("style");
-            styleSheet.id = "dynamic-theme-override";
-            
-            // Remove estilos dinâmicos anteriores se existirem
-            const oldStyle = document.getElementById("dynamic-theme-override");
-            if(oldStyle) oldStyle.remove();
-
-            if (primary) {
-                const rgb = hexToRgb(primaryColor);
-                if(rgb) {
-                    const rgba = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`;
-                    const rgbaLow = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.1)`;
-                    
-                    // Cria CSS forçado para todos os cards usarem a cor do tema
-                    styleSheet.innerHTML = `
-                        /* Força a cor do ícone e borda para a cor do tema em todos os cards */
-                        .card .card-icon { color: ${primaryColor} !important; text-shadow: 0 0 15px ${rgba} !important; }
-                        .card:hover { 
-                            box-shadow: 0 20px 40px -10px ${rgba}, 0 0 0 1px ${rgbaLow} !important; 
-                            border-color: ${rgbaLow} !important; 
-                        }
-                        
-                        /* Atualiza cabeçalhos das seções */
-                        .section-title { color: ${primaryColor} !important; }
-                        .section-line { background: linear-gradient(to right, ${primaryColor}, transparent) !important; }
-                        
-                        /* Atualiza dropdown de categorias */
-                        #catDropdown .dropdown-option[data-cat-filter="chat"] { color: ${primaryColor} !important; }
-                        #catDropdown .dropdown-option[data-cat-filter="media"] { color: ${primaryColor} !important; }
-                        #catDropdown .dropdown-option[data-cat-filter="dev"] { color: ${primaryColor} !important; }
-                        #catDropdown .dropdown-option[data-cat-filter="tools"] { color: ${primaryColor} !important; }
-                    `;
-                    document.head.appendChild(styleSheet);
-                }
+            // 2. Sincronizar Estilo dos Cards (Exatamente igual ao GameHub)
+            const savedStyle = localStorage.getItem('ldx_card_style');
+            if (savedStyle === 'transparent') {
+                document.body.classList.add('transparent-mode');
+            } else if (savedStyle === 'invisible') {
+                document.body.classList.add('invisible-mode');
             }
         }
-
-        // Aplica o fundo do PortaisLDX
-        function applyBackground() {
-            const savedBg = localStorage.getItem(KEYS.BG_URL);
-            const savedType = localStorage.getItem(KEYS.BG_TYPE);
-
-            if (!savedBg || savedBg === '') {
-                // Fallback para imagem padrão se não houver config
-                if(!localStorage.getItem(KEYS.BG_URL)) {
-                     localStorage.setItem(KEYS.BG_URL, defaultBackground);
-                     localStorage.setItem(KEYS.BG_TYPE, 'image');
-                     customBgLayer.style.backgroundImage = `url('${defaultBackground}')`;
-                     document.body.classList.add('has-custom-bg');
-                }
-                return;
-            }
-
-            if(savedType === 'image') {
-                customBgLayer.style.backgroundImage = `url('${savedBg}')`;
-                document.body.style.backgroundImage = 'none';
-            } else if (savedType === 'gradient') {
-                customBgLayer.style.backgroundImage = 'none';
-                document.body.style.backgroundImage = savedBg;
-            }
-            document.body.classList.add('has-custom-bg');
-        }
-
-        // Função Mestra de Sincronização
-        function syncWithPortaisLDX() {
-            applyThemeColors();
-            applyBackground();
-        }
-
-        // Ouvinte para mudanças em tempo real (ex: troca de cor em outra aba)
-        window.addEventListener('storage', (e) => {
-            if (e.key === KEYS.THEME_PRIMARY || e.key === KEYS.THEME_SECONDARY || 
-                e.key === KEYS.BG_URL || e.key === KEYS.BG_TYPE) {
-                syncWithPortaisLDX();
-            }
-        });
-
-        // Inicializa a sincronização ao carregar
-        document.addEventListener('DOMContentLoaded', syncWithPortaisLDX);
-
 
         /* --- LÓGICA DO SISTEMA DE PESQUISA E FILTRO --- */
         const engines = {
@@ -860,7 +776,6 @@
         const searchHistory = document.getElementById('searchHistory');
         const historyList = document.getElementById('historyList');
 
-        /* --- LÓGICA AVANÇADA DE FILTRAGEM --- */
         const cards = document.querySelectorAll('.card');
         const headers = document.querySelectorAll('.section-header');
 
@@ -916,7 +831,6 @@
 
         searchInput.addEventListener('input', filterCards);
 
-        // --- LÓGICA RESTANTE DA PESQUISA (Web) ---
         engineBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             engineDropdown.classList.toggle('active');
@@ -1119,7 +1033,12 @@
         cardElements.forEach(card => {
             card.addEventListener('click', function(e) {
                 if(e.button === 0) {
-                    e.preventDefault(); 
+                    e.preventDefault();
+
+                    // Adiciona animação de clique (scale down)
+                    this.classList.add('clicked');
+                    setTimeout(() => this.classList.remove('clicked'), 300);
+
                     const ripple = document.createElement('span');
                     ripple.classList.add('ripple');
                     const rect = card.getBoundingClientRect();
@@ -1131,6 +1050,7 @@
                     ripple.style.top = `${y - size / 2}px`;
                     card.appendChild(ripple);
                     setTimeout(() => { ripple.remove(); }, 600);
+
                     const href = this.getAttribute('href');
                     const target = this.getAttribute('target');
                     setTimeout(() => {
@@ -1142,6 +1062,9 @@
                 }
             });
         });
+
+        // Inicializa Sincronização
+        document.addEventListener('DOMContentLoaded', initSyncedSettings);
     </script>
 </body>
 </html>
