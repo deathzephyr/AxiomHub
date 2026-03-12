@@ -23,7 +23,7 @@
                     document.documentElement.style.setProperty('--bg-image', `url('${savedBg}')`);
                 } else {
                     // Garante o padrão
-                    document.documentElement.style.setProperty('--bg-image', `url('img2.jpeg')`);
+                    document.documentElement.style.setProperty('--bg-image', `url('img2.jpg')`);
                 }
             } catch (e) {
                 console.error("Erro ao carregar configuração inicial de fundo", e);
@@ -57,7 +57,7 @@
             --color-cloudflare: #F38020;
 
             /* VARIAVEL DE FUNDO CONTROLADA PELO SCRIPT ACIMA */
-            --bg-image: url('img2.jpeg');
+            --bg-image: url('img2.jpg');
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
@@ -769,7 +769,7 @@
             if (savedBg) {
                 document.documentElement.style.setProperty('--bg-image', `url('${savedBg}')`);
             } else {
-                document.documentElement.style.setProperty('--bg-image', `url('img2.jpeg')`);
+                document.documentElement.style.setProperty('--bg-image', `url('img2.jpg')`);
             }
         }
 
@@ -780,7 +780,7 @@
                 if (newBg) {
                     document.documentElement.style.setProperty('--bg-image', `url('${newBg}')`);
                 } else {
-                    document.documentElement.style.setProperty('--bg-image', `url('img2.jpeg')`);
+                    document.documentElement.style.setProperty('--bg-image', `url('img2.jpg')`);
                 }
             }
             if (e.key === 'ldx_card_style') {
@@ -1102,3 +1102,4 @@
     </script>
 </body>
 </html>
+
